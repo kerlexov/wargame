@@ -1,0 +1,15 @@
+span.a {
+    display: inline-block;
+    width: 200px;
+    height: auto;
+    padding: 50px;
+    border: 1px solid red;
+}
+span.c {
+    display: inline-block;
+    width: 200px;
+    height: auto;
+    padding: 5px;
+    border: 1px solid green;
+}
+
