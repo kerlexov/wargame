@@ -1,88 +1,28 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Karlo
- * Date: 29.11.2018.
- * Time: 23:49
- */
-include("class_lib.php");
-include("build.php");
-$army1num=$_GET["army1"];
-$army2num=$_GET["army2"];
-//$army2num=18;
-//$army1num=15;
-
-$vojska1 = array();
-for($i = 0; $i < $army1num; $i++) {
-    $warrior=new warrior();
-    $warrior->set_id($i);
-    $warrior->set_atk(mt_rand(2, 5));
-    $warrior->set_def(mt_rand(5, 20));
-    array_push($vojska1, $warrior);}
-
-$vojska2 = array();
-for($i = 0; $i < $army2num; $i++) {
-    $warrior=new warrior();
-    $warrior->set_id($i);
-    $warrior->set_atk(mt_rand(2, 5));
-    $warrior->set_def(mt_rand(5, 20));
-    array_push($vojska2, $warrior);}
-
-
-function check_hp($vojska){
-    foreach ($vojska as $warrior){
-         if ($warrior->get_def()<0)
-         {
-             unset($vojska[$warrior->get_id()]);
-         }
-         //    array_slice($vojska,$warrior->get_id(),1);
-}}
-
-function show($vojska){
-    asort($vojska);
-    //print_r($vojska);
-    echo build_table($vojska);}
-
-function alive($vojska){
-    asort($vojska);
+//glavne operacije
+require 'warrior.php';
+require 'army.php';
+require 'render.php';
+require 'war.php';
+require 'magic.php';
+//unos iz GETa
+    $army1num=$_GET["army1"];
+    $army2num=$_GET["army2"];
+//inicijalizacija vojske
+    $army1= new army("army1",$army1num);
+    $army2= new army("army2",$army2num);
+//dodavanje vojnika u vojsku
+    for($i = 0; $i < $army1num; $i++) {
+        $warrior=new warrior($i,mt_rand(1, 3),mt_rand(10, 20));
+        $army1->add_warrior($warrior);
 }
-
-function brawl($vojska1,$vojska2){
-   // do{
-        check_hp($vojska1);
-        check_hp($vojska2);
-    if ($vojska2>$vojska1)
-        for($i = 0; $i < count($vojska1); $i++) {
-            $vojska1[$i]->set_def(($vojska1[$i]->get_def())-($vojska2[$i]->get_atk()));
-            $vojska2[$i]->set_def(($vojska2[$i]->get_def())-($vojska1[$i]->get_atk()));
-        }
-        else
-            for($i = 0; $i < count($vojska2); $i++) {
-                $vojska2[$i]->set_def(($vojska2[$i]->get_def())-($vojska1[$i]->get_atk()));
-                $vojska1[$i]->set_def(($vojska1[$i]->get_def())-($vojska2[$i]->get_atk()));
-            }
-       // }while((count($vojska1)>0)||(count($vojska2)>0));
+    for($i = 0; $i < $army2num; $i++) {
+        $warrior=new warrior($i,mt_rand(1, 3),mt_rand(10, 20));
+        $army2->add_warrior($warrior);
 }
-
-brawl($vojska1,$vojska2);
-brawl($vojska1,$vojska2);
-brawl($vojska1,$vojska2);
-brawl($vojska1,$vojska2);
-
-echo "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head>";
-echo "<span class='a'>";
-echo "VOJSKA 1";
-show($vojska1);
-echo "</span>";
-echo "<span class='a'>";
-echo "VOJSKA 2";
-show($vojska2);
-echo "</span>";
-echo "<span class='c'>";
-echo "PREZIVJELI VOJSKA 1";
-echo "</span>";
-echo "<span class='c'>";
-echo "PREZIVJELI VOJSKA 2";
-echo "</span>";
-
-render($vojska1,$vojska2);
+    $magic_count=mt_rand(1,8);
+    $magic=new magic($army1,$army2,$magic_count);
+//BORBA
+    brawl($army1,$army2);
+//prikaz rezultata
+    render($army1,$army2,$magic);
