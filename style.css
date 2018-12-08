@@ -1,15 +1,62 @@
+body{
+    background-color: #2B2B2B;
+}
 span.a {
     display: inline-block;
-    width: 200px;
+    position: absolute;
+    top: 0px;
+    left:0px;
+    width: 250px;
     height: auto;
-    padding: 50px;
+    min-height: 200px;
+    padding: 10px 10px 0px 15px;
+    margin:10px;
     border: 1px solid red;
+    outline-style: groove;
+    background-color: #ededed;
+}
+span.b {
+    display: inline-block;
+    position: absolute;
+    top:0px;
+    left:350px;
+    width: 250px;
+    height: auto;
+    min-height: 200px;
+    margin:10px;
+    padding: 10px 10px 0px 15px;
+    border: 1px solid red;
+    outline-style: groove;
+    background-color: #ededed;
 }
 span.c {
     display: inline-block;
     width: 200px;
+    position: absolute;
+    top:0px;
+    left:45%;
     height: auto;
     padding: 5px;
+    margin: 50px;
     border: 1px solid green;
+    outline-style: double;
+    background-color: #ededed;
 }
 
+span.m {
+    display: inline-block;
+    width: 200px;
+    position: relative;
+    top: 25%;
+    left:45%;
+    height: auto;
+    padding: 5px;
+    margin: 50px;
+    border: 1px solid green;
+    outline-style: dot-dash;
+    background-color: #ededed;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
