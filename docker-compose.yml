@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  wargame:
+    image: 
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '80:80'
+    expose:
+      - '80'
